@@ -1,46 +1,52 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- Open Folder -->
+    <!-- Open Folder (bxs-folder-open) -->
     <Geometry x:Key="GeomFolderOpen">M2.165 19.551c.186.28.499.449.835.449h15c.4 0 .762-.238.919-.606l3-7A.998.998 0 0 0 21 11h-1V8c0-1.103-.897-2-2-2h-6.655L8.789 4H4c-1.103 0-2 .897-2 2v13h.007a1 1 0 0 0 .158.551zM18 8v3H6c-.4 0-.762.238-.919.606L4 14.129V8h14z</Geometry>
 
-    <!-- Layer / Background -->
+    <!-- Layer / Background (bxs-layer) -->
     <Geometry x:Key="GeomLayer">m21.484 7.125-9.022-5a1.003 1.003 0 0 0-.968 0l-8.978 4.96a1 1 0 0 0-.003 1.748l9.022 5.04a.995.995 0 0 0 .973.001l8.978-5a1 1 0 0 0-.002-1.749zM12 15.856l-8.515-4.73-.971 1.748 9 5a1 1 0 0 0 .971 0l9-5-.971-1.748L12 15.856zM12 19.856l-8.515-4.73-.971 1.748 9 5a1 1 0 0 0 .971 0l9-5-.971-1.748L12 19.856z</Geometry>
 
-    <!-- Moon / Dark Theme -->
+    <!-- Sun / Light Theme (bxs-sun) -->
+    <Geometry x:Key="GeomSun">M6.995 12c0 2.761 2.246 5.007 5.007 5.007s5.007-2.246 5.007-5.007-2.246-5.007-5.007-5.007S6.995 9.239 6.995 12zM11 19h2v3h-2zm0-17h2v3h-2zm-9 9h3v2H2zm17 0h3v2h-3zM5.637 19.778l-1.414-1.414 2.121-2.121 1.414 1.414zM16.242 6.344l2.122-2.122 1.414 1.414-2.122 2.122zM6.344 7.759 4.223 5.637l1.415-1.414 2.12 2.122zm13.434 10.605-1.414 1.414-2.122-2.122 1.414-1.414z</Geometry>
+
+    <!-- Moon / Dark Theme (bxs-moon) -->
     <Geometry x:Key="GeomMoon">M12 11.807A9.002 9.002 0 0 1 10.049 2a9.942 9.942 0 0 0-5.12 2.735c-3.905 3.905-3.905 10.237 0 14.142 3.906 3.906 10.237 3.905 14.143 0a9.946 9.946 0 0 0 2.735-5.119A9.003 9.003 0 0 1 12 11.807z</Geometry>
 
-    <!-- Info Circle / About -->
+    <!-- Info Circle / About (bxs-info-circle) -->
     <Geometry x:Key="GeomInfo">M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z</Geometry>
 
-    <!-- Play (movie play) -->
-    <Geometry x:Key="GeomPlay">M20 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zm.001 6c-.001 0-.001 0 0 0h-.465l-2.667-4H20l.001 4zM15.5 15 10 18v-6l5.5 3zm-.964-6-2.667-4h2.596l2.667 4h-2.596zm-2.404 0H9.536L6.869 5h2.596l2.667 4zM4 5h.465l2.667 4H4V5z</Geometry>
+    <!-- Play (bxs-caret-right-circle) -->
+    <Geometry x:Key="GeomPlay">M12 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12s4.486 10 10 10zM10 7l6 5-6 5V7z</Geometry>
 
-    <!-- Pause (two vertical bars) -->
+    <!-- Pause (custom - two vertical bars) -->
     <Geometry x:Key="GeomPause">M6 4h4v16H6zM14 4h4v16h-4z</Geometry>
 
-    <!-- Next Frame (fast forward circle) -->
-    <Geometry x:Key="GeomNextFrame">M12 2C6.485 2 2 6.485 2 12s4.485 10 10 10c5.514 0 10-4.485 10-10S17.514 2 12 2zm1 14v-4l-6 4V8l6 4V8l6 4-6 4z</Geometry>
+    <!-- Previous Frame (bxs-skip-previous-circle) -->
+    <Geometry x:Key="GeomPrevFrame">M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10c5.515 0 10-4.486 10-10S17.515 2 12 2zm4 14-6-4v4H8V8h2v4l6-4v8z</Geometry>
 
-    <!-- Previous Frame (right arrow flipped) -->
-    <Geometry x:Key="GeomPrevFrame">M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886z</Geometry>
+    <!-- Next Frame (bxs-skip-next-circle) -->
+    <Geometry x:Key="GeomNextFrame">M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm4 14h-2v-4l-6 4V8l6 4V8h2v8z</Geometry>
 
-    <!-- Home / First Frame (eject) -->
-    <Geometry x:Key="GeomHome">m12 6-6 8h12zM6 16h12v2H6z</Geometry>
+    <!-- First Frame / Rewind (bxs-rewind-circle) -->
+    <Geometry x:Key="GeomFirstFrame">M12 2C6.486 2 2 6.485 2 12s4.486 10 10 10c5.515 0 10-4.485 10-10S17.515 2 12 2zm5 14-6-4v4l-6-4 6-4v4l6-4v8z</Geometry>
 
-    <!-- Loop / Repeat -->
+    <!-- Last Frame / Fast Forward (bxs-fast-forward-circle) -->
+    <Geometry x:Key="GeomLastFrame">M12 2C6.485 2 2 6.485 2 12s4.485 10 10 10c5.514 0 10-4.485 10-10S17.514 2 12 2zm1 14v-4l-6 4V8l6 4V8l6 4-6 4z</Geometry>
+
+    <!-- Fit Window (bxs-window-alt) -->
+    <Geometry x:Key="GeomFit">M20 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zm-3 3h2v2h-2V6zm-3 0h2v2h-2V6zM4 19v-9h16.001l.001 9H4z</Geometry>
+
+    <!-- Original Size / Detail (bxs-detail) -->
+    <Geometry x:Key="GeomOriginal">M20 3H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-9 14H5v-2h6v2zm8-4H5v-2h14v2zm0-4H5V7h14v2z</Geometry>
+
+    <!-- Loop / Repeat (custom) -->
     <Geometry x:Key="GeomLoop">M17.817 6.105a.999.999 0 0 0-.411 1.339l.439.876a6.876 6.876 0 0 1 .612 2.68 6.859 6.859 0 0 1-.678 2.993 6.988 6.988 0 0 1-1.341 2.022 6.993 6.993 0 0 1-2.788 1.742l-.189 2.27a9.044 9.044 0 0 0 3.644-2.238A9.042 9.042 0 0 0 19 11a8.92 8.92 0 0 0-.801-3.686l.463.231a1 1 0 0 0 1.341-.41 1 1 0 0 0-.41-1.34L17 4.52l-2.183 1.076 1 1.732 2-.986zM6.183 18.894a.999.999 0 0 0 .411-1.339l-.439-.876a6.876 6.876 0 0 1-.612-2.68 6.857 6.857 0 0 1 .678-2.993 6.988 6.988 0 0 1 1.341-2.022 6.992 6.992 0 0 1 2.788-1.742l.189-2.27a9.044 9.044 0 0 0-3.644 2.238A9.042 9.042 0 0 0 5 13c0 1.305.275 2.567.801 3.686l-.463-.231a1 1 0 0 0-1.341.41 1 1 0 0 0 .41 1.34L7 19.48l2.183-1.076-1-1.732-2 .986z</Geometry>
 
-    <!-- Fit to window / Expand -->
-    <Geometry x:Key="GeomFit">M4 5v4a1 1 0 0 0 2 0V7h2a1 1 0 0 0 0-2H5a1 1 0 0 0-1 1zm16 10v4a1 1 0 0 1-1 1h-3a1 1 0 0 1 0-2h2v-2a1 1 0 0 1 2 0zm0-7v4a1 1 0 0 1-2 0V7h-2a1 1 0 0 1 0-2h3a1 1 0 0 1 1 1zM6 17v-2a1 1 0 0 0-2 0v3a1 1 0 0 0 1 1h3a1 1 0 0 0 0-2H6z</Geometry>
-
-    <!-- Original Size 1:1 -->
-    <Geometry x:Key="GeomOriginal">M19.707 14.293l-6-6a.999.999 0 0 0-1.414 0l-6 6a.999.999 0 0 0 0 1.414.999.999 0 0 0 1.414 0L12 10.414l4.293 4.293a.999.999 0 0 0 1.414 0 .999.999 0 0 0 0-1.414z</Geometry>
-
-    <!-- Recent / History -->
-    <Geometry x:Key="GeomRecent">M13 7a1 1 0 0 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 10.586V7zm-1-5a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z</Geometry>
-
-    <!-- Reload / Refresh -->
+    <!-- Reload / Refresh (custom) -->
     <Geometry x:Key="GeomReload">M13.5 2.5a10 10 0 0 0-9.485 6.872l-.778-1.06a1 1 0 0 0-1.63 1.158l2.004 2.728a1 1 0 0 0 .731.402h.078c.021 0 .043-.001.065-.003h.013l2.916-.247a1 1 0 1 0-.168-1.992l-1.41.12a8 8 0 1 1 5.664 10.427 1 1 0 0 0 .473 1.944A10 10 0 0 0 13.5 2.5z</Geometry>
+
+    <!-- Recent / History (custom) -->
+    <Geometry x:Key="GeomRecent">M13 7a1 1 0 0 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 10.586V7zm-1-5a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z</Geometry>
 
 </ResourceDictionary>

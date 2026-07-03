@@ -250,15 +250,16 @@
                         <!-- Playback Buttons -->
                         <StackPanel Grid.Column="0" Orientation="Horizontal">
                             <Button Style="{StaticResource IconButtonStyle}"
+                                    Command="{Binding GoToFirstFrameCommand}"
+                                    ToolTip="首帧 (Home)">
+                                <Path Data="{StaticResource GeomFirstFrame}"
+                                      Style="{StaticResource ToolbarIconPath}" />
+                            </Button>
+                            <Button Style="{StaticResource IconButtonStyle}"
                                     Command="{Binding PreviousFrameCommand}"
                                     ToolTip="上一帧 (←)">
-                                <Grid RenderTransformOrigin="0.5,0.5">
-                                    <Grid.RenderTransform>
-                                        <ScaleTransform ScaleX="-1" />
-                                    </Grid.RenderTransform>
-                                    <Path Data="{StaticResource GeomPrevFrame}"
-                                          Style="{StaticResource ToolbarIconPath}" />
-                                </Grid>
+                                <Path Data="{StaticResource GeomPrevFrame}"
+                                      Style="{StaticResource ToolbarIconPath}" />
                             </Button>
                             <Button Style="{StaticResource IconButtonStyle}"
                                     Command="{Binding PlayPauseCommand}"
@@ -296,6 +297,12 @@
                                     Command="{Binding NextFrameCommand}"
                                     ToolTip="下一帧 (→)">
                                 <Path Data="{StaticResource GeomNextFrame}"
+                                      Style="{StaticResource ToolbarIconPath}" />
+                            </Button>
+                            <Button Style="{StaticResource IconButtonStyle}"
+                                    Command="{Binding GoToLastFrameCommand}"
+                                    ToolTip="尾帧 (End)">
+                                <Path Data="{StaticResource GeomLastFrame}"
                                       Style="{StaticResource ToolbarIconPath}" />
                             </Button>
                         </StackPanel>
