@@ -1,0 +1,28 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+
+## Visual Studio
+*.sln.ide/
+**/.vs/
+
+## JetBrains Rider
+.idea/
+*.sln.iml
+
+## Python
+__pycache__/
+*.py[cod]
+
+## OS
+.DS_Store
+Thumbs.db
+
+## Project specific
+dist/
+*.log

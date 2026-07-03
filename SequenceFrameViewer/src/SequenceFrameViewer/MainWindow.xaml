@@ -1,0 +1,325 @@
+﻿<Window x:Class="SequenceFrameViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SequenceFrameViewer.ViewModels"
+        xmlns:helpers="clr-namespace:SequenceFrameViewer.Helpers"
+        mc:Ignorable="d"
+        Title="FrameView" Height="600" Width="1000"
+        Background="{StaticResource WindowBackgroundBrush}"
+        Foreground="{StaticResource ForegroundBrush}"
+        WindowStartupLocation="CenterScreen"
+        TextOptions.TextFormattingMode="Display">
+
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+
+    <Window.Resources>
+        <helpers:BackgroundModeConverter x:Key="BackgroundModeConverter" />
+
+        <Style x:Key="ToolbarIconPath" TargetType="Path">
+            <Setter Property="Width" Value="16" />
+            <Setter Property="Height" Value="16" />
+            <Setter Property="Stretch" Value="Uniform" />
+            <Setter Property="Fill" Value="{StaticResource IconBrush}" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="UseLayoutRounding" Value="True" />
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- ============ Top Toolbar ============ -->
+        <Border Grid.Row="0"
+                Background="{StaticResource ToolbarBackgroundBrush}"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="4,2">
+            <DockPanel LastChildFill="False">
+                <!-- Left section -->
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+
+                    <!-- Open Folder -->
+                    <Button Style="{StaticResource ToolbarButtonStyle}" Command="{Binding OpenFolderCommand}" ToolTip="打开文件夹 (Ctrl+O)">
+                        <StackPanel Orientation="Horizontal">
+                            <Path Data="{StaticResource GeomFolderOpen}" Style="{StaticResource ToolbarIconPath}" />
+                            <TextBlock Text="打开" Margin="4,0,0,0" FontSize="13" />
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Recent Folders -->
+                    <ComboBox ItemsSource="{Binding RecentFolders}"
+                              Width="120"
+                              Height="26"
+                              Margin="2,0"
+                              ToolTip="最近打开"
+                              SelectionChanged="OnRecentFolderSelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" TextTrimming="CharacterEllipsis" FontSize="12" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <!-- Reload -->
+                    <Button Style="{StaticResource IconButtonStyle}" Command="{Binding ReloadCommand}" ToolTip="重新加载 (Ctrl+R)">
+                        <Path Data="{StaticResource GeomReload}" Style="{StaticResource ToolbarIconPath}" />
+                    </Button>
+
+                    <Separator Style="{StaticResource ToolbarSeparatorStyle}" />
+
+                    <!-- Background Mode -->
+                    <ComboBox SelectedValue="{Binding BackgroundMode}"
+                              SelectedValuePath="Tag"
+                              Height="26"
+                              MinWidth="80"
+                              ToolTip="背景模式">
+                        <ComboBoxItem Tag="Checkerboard" Height="24">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource GeomLayer}" Width="14" Height="14" Stretch="Uniform"
+                                      Fill="{StaticResource IconBrush}" VerticalAlignment="Center" />
+                                <TextBlock Text=" 棋盘格" FontSize="12" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="Black" Height="24">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource GeomLayer}" Width="14" Height="14" Stretch="Uniform"
+                                      Fill="{StaticResource IconBrush}" VerticalAlignment="Center" />
+                                <TextBlock Text=" 黑色" FontSize="12" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="White" Height="24">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource GeomLayer}" Width="14" Height="14" Stretch="Uniform"
+                                      Fill="{StaticResource IconBrush}" VerticalAlignment="Center" />
+                                <TextBlock Text=" 白色" FontSize="12" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </ComboBoxItem>
+                        <ComboBoxItem Tag="Gray" Height="24">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource GeomLayer}" Width="14" Height="14" Stretch="Uniform"
+                                      Fill="{StaticResource IconBrush}" VerticalAlignment="Center" />
+                                <TextBlock Text=" 灰色" FontSize="12" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </ComboBoxItem>
+                    </ComboBox>
+
+                    <Separator Style="{StaticResource ToolbarSeparatorStyle}" />
+
+                    <!-- FPS -->
+                    <Label Content="FPS" VerticalAlignment="Center" FontSize="12" />
+                    <TextBox x:Name="FpsTextBox"
+                             Text="{Binding Fps, UpdateSourceTrigger=PropertyChanged}"
+                             Width="48"
+                             Height="24"
+                             FontSize="12"
+                             HorizontalContentAlignment="Center" />
+
+                    <!-- Loop Toggle -->
+                    <ToggleButton Style="{StaticResource ToggleIconButtonStyle}"
+                                  IsChecked="{Binding IsLooping}"
+                                  ToolTip="循环播放">
+                        <Path Data="{StaticResource GeomLoop}" Style="{StaticResource ToolbarIconPath}" />
+                    </ToggleButton>
+                </StackPanel>
+
+                <!-- Right section -->
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+
+                    <!-- Fit Window -->
+                    <Button Style="{StaticResource IconButtonStyle}" Command="{Binding FitWindowCommand}" ToolTip="适配窗口 (F)">
+                        <Path Data="{StaticResource GeomFit}" Style="{StaticResource ToolbarIconPath}" />
+                    </Button>
+
+                    <!-- Original Size -->
+                    <Button Style="{StaticResource IconButtonStyle}" Command="{Binding ZoomOriginalCommand}" ToolTip="原始大小 (1)">
+                        <Path Data="{StaticResource GeomOriginal}" Style="{StaticResource ToolbarIconPath}" />
+                    </Button>
+
+                    <!-- Zoom Level -->
+                    <TextBlock Text="{Binding ZoomText}"
+                               VerticalAlignment="Center"
+                               FontSize="12"
+                               Foreground="{StaticResource ForegroundSecondaryBrush}"
+                               Margin="4,0,8,0" />
+
+                    <Separator Style="{StaticResource ToolbarSeparatorStyle}" />
+
+                    <!-- About -->
+                    <Button Style="{StaticResource IconButtonStyle}" Command="{Binding ShowAboutCommand}" ToolTip="关于">
+                        <Path Data="{StaticResource GeomInfo}" Style="{StaticResource ToolbarIconPath}" />
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- ============ Preview Area ============ -->
+        <Border Grid.Row="1"
+                Background="{Binding BackgroundMode, Converter={StaticResource BackgroundModeConverter}}"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0"
+                ClipToBounds="True"
+                x:Name="PreviewBorder">
+
+            <Grid x:Name="PreviewContainer" RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform x:Name="ScaleTransform" />
+                        <TranslateTransform x:Name="TranslateTransform" />
+                    </TransformGroup>
+                </Grid.RenderTransform>
+
+                <Image x:Name="PreviewImage"
+                       Source="{Binding CurrentImage}"
+                       Stretch="Uniform"
+                       UseLayoutRounding="True"
+                       SnapsToDevicePixels="True">
+                    <Image.Style>
+                        <Style TargetType="Image">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsEmpty}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+
+                <!-- Empty State -->
+                <TextBlock Text="{Binding EmptyStateMessage}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           FontSize="16"
+                           Foreground="{StaticResource ForegroundMutedBrush}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsEmpty}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+        </Border>
+
+        <!-- ============ Bottom Bar (Slider + Controls) ============ -->
+        <Border Grid.Row="2"
+                Background="{StaticResource PanelBackgroundBrush}"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,1,0,0">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Timeline Slider -->
+                <Border Grid.Row="0" Padding="8,0" Background="{StaticResource PanelBackgroundBrush}">
+                    <Slider x:Name="FrameSlider"
+                            Minimum="0"
+                            Maximum="1"
+                            Value="{Binding FrameSliderValue}"
+                            IsSnapToTickEnabled="True"
+                            TickFrequency="1"
+                            SmallChange="1"
+                            LargeChange="10"
+                            Height="18" />
+                </Border>
+
+                <!-- Controls Bar -->
+                <Border Grid.Row="1" Padding="6,2,8,2" Background="{StaticResource ToolbarBackgroundBrush}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Playback Buttons -->
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <Button Style="{StaticResource IconButtonStyle}"
+                                    Command="{Binding PreviousFrameCommand}"
+                                    ToolTip="上一帧 (←)">
+                                <Grid RenderTransformOrigin="0.5,0.5">
+                                    <Grid.RenderTransform>
+                                        <ScaleTransform ScaleX="-1" />
+                                    </Grid.RenderTransform>
+                                    <Path Data="{StaticResource GeomPrevFrame}"
+                                          Style="{StaticResource ToolbarIconPath}" />
+                                </Grid>
+                            </Button>
+                            <Button Style="{StaticResource IconButtonStyle}"
+                                    Command="{Binding PlayPauseCommand}"
+                                    ToolTip="播放 / 暂停 (Space)">
+                                <Grid>
+                                    <Path Data="{StaticResource GeomPlay}" Stretch="Uniform" Width="16" Height="16"
+                                          Fill="{StaticResource IconBrush}" SnapsToDevicePixels="True">
+                                        <Path.Style>
+                                            <Style TargetType="Path">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsPlaying}" Value="True">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Path.Style>
+                                    </Path>
+                                    <Path Data="{StaticResource GeomPause}" Stretch="Uniform" Width="16" Height="16"
+                                          Fill="{StaticResource IconBrush}" SnapsToDevicePixels="True">
+                                        <Path.Style>
+                                            <Style TargetType="Path">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsPlaying}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Path.Style>
+                                    </Path>
+                                </Grid>
+                            </Button>
+                            <Button Style="{StaticResource IconButtonStyle}"
+                                    Command="{Binding NextFrameCommand}"
+                                    ToolTip="下一帧 (→)">
+                                <Path Data="{StaticResource GeomNextFrame}"
+                                      Style="{StaticResource ToolbarIconPath}" />
+                            </Button>
+                        </StackPanel>
+
+                        <!-- Frame Info -->
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10,0,0,0" VerticalAlignment="Center">
+                            <TextBlock FontSize="12" Foreground="{StaticResource ForegroundSecondaryBrush}">
+                                <Run Text="帧" /><Run Text=":" />
+                            </TextBlock>
+                            <TextBlock Text="{Binding CurrentFrameIndex}" FontSize="12" Margin="2,0,0,0" />
+                            <TextBlock Text="/" FontSize="12" Margin="4,0" Foreground="{StaticResource ForegroundMutedBrush}" />
+                            <TextBlock Text="{Binding TotalFrames}" FontSize="12" />
+                            <TextBlock Text="|" FontSize="12" Margin="8,0" Foreground="{StaticResource ForegroundMutedBrush}" />
+                            <TextBlock Text="{Binding FrameSizeText}" FontSize="12"
+                                       Foreground="{StaticResource ForegroundSecondaryBrush}" />
+                            <TextBlock Text="|" FontSize="12" Margin="8,0" Foreground="{StaticResource ForegroundMutedBrush}" />
+                            <TextBlock Text="{Binding CurrentFileName}" FontSize="12"
+                                       Foreground="{StaticResource ForegroundSecondaryBrush}"
+                                       TextTrimming="CharacterEllipsis"
+                                       MaxWidth="180" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
