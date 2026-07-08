@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -238,25 +239,30 @@ public partial class MainViewModel : ObservableObject
         try
         {
             int total = _currentSequence.TotalFrames;
-            int lookAhead = 20;
-            int lookBehind = 5;
+            int lookAhead = 8;
+            int lookBehind = 2;
 
+            using var semaphore = new SemaphoreSlim(3, 3);
             var tasks = new List<Task>();
 
             for (int i = 1; i <= lookAhead; i++)
             {
                 int idx = (centerIndex + i) % total;
                 var path = _currentSequence.Frames[idx].FilePath;
-                if (_cache.Get(path) == null)
-                    tasks.Add(_decoder.DecodeAsync(path));
+                if (_cache.Get(path) != null)
+                    continue;
+                await semaphore.WaitAsync();
+                tasks.Add(DecodeWithSemaphoreAsync(path, semaphore));
             }
 
             for (int i = 1; i <= lookBehind; i++)
             {
                 int idx = (centerIndex - i + total) % total;
                 var path = _currentSequence.Frames[idx].FilePath;
-                if (_cache.Get(path) == null)
-                    tasks.Add(_decoder.DecodeAsync(path));
+                if (_cache.Get(path) != null)
+                    continue;
+                await semaphore.WaitAsync();
+                tasks.Add(DecodeWithSemaphoreAsync(path, semaphore));
             }
 
             await Task.WhenAll(tasks);
@@ -264,6 +270,18 @@ public partial class MainViewModel : ObservableObject
         finally
         {
             _isPreloading = false;
+        }
+    }
+
+    private async Task DecodeWithSemaphoreAsync(string path, SemaphoreSlim semaphore)
+    {
+        try
+        {
+            await _decoder.DecodeAsync(path);
+        }
+        finally
+        {
+            semaphore.Release();
         }
     }
 
