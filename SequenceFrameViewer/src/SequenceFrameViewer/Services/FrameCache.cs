@@ -9,6 +9,7 @@ public class FrameCache
     private readonly int _maxItems;
     private readonly Dictionary<string, LinkedListNode<CacheItem>> _map;
     private readonly LinkedList<CacheItem> _list;
+    private readonly object _lock = new();
 
     public FrameCache(int maxItems = 60)
     {
@@ -19,11 +20,14 @@ public class FrameCache
 
     public BitmapSource? Get(string key)
     {
-        if (_map.TryGetValue(key, out var node))
+        lock (_lock)
         {
-            _list.Remove(node);
-            _list.AddFirst(node);
-            return node.Value.Image;
+            if (_map.TryGetValue(key, out var node))
+            {
+                _list.Remove(node);
+                _list.AddFirst(node);
+                return node.Value.Image;
+            }
         }
 
         return null;
@@ -31,45 +35,57 @@ public class FrameCache
 
     public void Add(string key, BitmapSource image)
     {
-        if (_map.TryGetValue(key, out var existingNode))
+        lock (_lock)
         {
-            _list.Remove(existingNode);
-            _list.AddFirst(existingNode);
-            existingNode.Value.Image = image;
-            return;
-        }
-
-        while (_map.Count >= _maxItems)
-        {
-            var last = _list.Last;
-            if (last != null)
+            if (_map.TryGetValue(key, out var existingNode))
             {
-                _map.Remove(last.Value.Key);
-                _list.RemoveLast();
+                _list.Remove(existingNode);
+                _list.AddFirst(existingNode);
+                existingNode.Value.Image = image;
+                return;
             }
-        }
 
-        var item = new CacheItem { Key = key, Image = image };
-        var newNode = _list.AddFirst(item);
-        _map[key] = newNode;
+            while (_map.Count >= _maxItems)
+            {
+                var last = _list.Last;
+                if (last != null)
+                {
+                    _map.Remove(last.Value.Key);
+                    _list.RemoveLast();
+                }
+            }
+
+            var item = new CacheItem { Key = key, Image = image };
+            var newNode = _list.AddFirst(item);
+            _map[key] = newNode;
+        }
     }
 
     public void Remove(string key)
     {
-        if (_map.TryGetValue(key, out var node))
+        lock (_lock)
         {
-            _list.Remove(node);
-            _map.Remove(key);
+            if (_map.TryGetValue(key, out var node))
+            {
+                _list.Remove(node);
+                _map.Remove(key);
+            }
         }
     }
 
     public void Clear()
     {
-        _map.Clear();
-        _list.Clear();
+        lock (_lock)
+        {
+            _map.Clear();
+            _list.Clear();
+        }
     }
 
-    public int Count => _map.Count;
+    public int Count
+    {
+        get { lock (_lock) { return _map.Count; } }
+    }
 
     private class CacheItem
     {

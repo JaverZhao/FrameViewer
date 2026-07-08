@@ -185,6 +185,7 @@ public partial class MainViewModel : ObservableObject
             return;
 
         var frame = _currentSequence.Frames[index];
+        if (frame == null) return;
         CurrentFrameIndex = index;
         CurrentFileName = frame.FileName;
 

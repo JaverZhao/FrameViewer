@@ -96,7 +96,6 @@ public class PlaybackEngine
             return;
 
         _currentIndex = Math.Clamp(index, 0, _sequence.TotalFrames - 1);
-        FrameChanged?.Invoke(_currentIndex);
     }
 
     public void NextFrame()
@@ -105,7 +104,6 @@ public class PlaybackEngine
             return;
 
         _currentIndex = (_currentIndex + 1) % _sequence.TotalFrames;
-        FrameChanged?.Invoke(_currentIndex);
     }
 
     public void PreviousFrame()
@@ -116,8 +114,6 @@ public class PlaybackEngine
         _currentIndex--;
         if (_currentIndex < 0)
             _currentIndex = _sequence.TotalFrames - 1;
-
-        FrameChanged?.Invoke(_currentIndex);
     }
 
     private void OnTimerTick(object? sender, EventArgs e)
