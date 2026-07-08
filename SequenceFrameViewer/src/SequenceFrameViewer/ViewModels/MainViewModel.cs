@@ -303,12 +303,15 @@ public partial class MainViewModel : ObservableObject
     {
         ZoomLevel = 1.0;
         IsFitToWindow = false;
-        UpdateZoomText();
+        ZoomText = "原始大小";
     }
 
     private void UpdateZoomText()
     {
-        ZoomText = $"{(int)(ZoomLevel * 100)}%";
+        if (!IsFitToWindow && Math.Abs(ZoomLevel - 1.0) < 0.01)
+            ZoomText = "原始大小";
+        else
+            ZoomText = $"{(int)(ZoomLevel * 100)}%";
     }
 
     private async void OnEngineFrameChanged(int index)

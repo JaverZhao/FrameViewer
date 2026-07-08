@@ -9,8 +9,8 @@
     <Color x:Key="ForegroundPrimary">#E0E0E0</Color>
     <Color x:Key="ForegroundSecondary">#999999</Color>
     <Color x:Key="ForegroundMuted">#666666</Color>
-    <Color x:Key="AccentColor">#3CCDB4</Color>
-    <Color x:Key="AccentHover">#2BBBA3</Color>
+    <Color x:Key="AccentColor">#2E9DEE</Color>
+    <Color x:Key="AccentHover">#1D8CDD</Color>
     <Color x:Key="BorderColor">#3E3E3E</Color>
     <Color x:Key="BorderLight">#555555</Color>
 
@@ -88,6 +88,36 @@
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background" Value="{StaticResource AccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.4" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PlayButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Width" Value="80" />
+        <Setter Property="Height" Value="80" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="0"
+                            CornerRadius="40"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#3A3A3A" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="BorderThickness" Value="2" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource AccentBrush}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Opacity" Value="0.4" />

@@ -146,6 +146,9 @@ public partial class MainWindow : Window
         if (ViewModel.IsEmpty || ViewModel.CurrentImage == null)
             return;
 
+        if (!ViewModel.IsFitToWindow && Math.Abs(_scale - 1.0) < 0.01)
+            return;
+
         var mousePos = e.GetPosition(PreviewContainer);
         double newScale = e.Delta > 0 ? _scale * 1.1 : _scale / 1.1;
         newScale = Math.Clamp(newScale, 0.1, 10.0);
@@ -166,7 +169,7 @@ public partial class MainWindow : Window
 
     private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
     {
-        if (e.ChangedButton == MouseButton.Left && !ViewModel.IsFitToWindow)
+        if (e.ChangedButton == MouseButton.Left && !ViewModel.IsFitToWindow && Math.Abs(_scale - 1.0) >= 0.01)
         {
             _dragStart = e.GetPosition(PreviewBorder);
             _isDragging = true;

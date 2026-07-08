@@ -296,11 +296,11 @@
                                 <Path Data="{StaticResource GeomPrevFrame}"
                                       Style="{StaticResource ToolbarIconPath}" />
                             </Button>
-                            <Button Style="{StaticResource IconButtonStyle}"
+                            <Button Style="{StaticResource PlayButtonStyle}"
                                     Command="{Binding PlayPauseCommand}"
                                     ToolTip="播放 / 暂停 (Space)">
                                 <Grid>
-                                    <Path Data="{StaticResource GeomPlay}" Stretch="Uniform" Width="32" Height="32"
+                                    <Path Data="{StaticResource GeomPlay}" Stretch="Uniform" Width="40" Height="40"
                                           Fill="{StaticResource IconBrush}" SnapsToDevicePixels="True">
                                         <Path.Style>
                                             <Style TargetType="Path">
@@ -313,7 +313,7 @@
                                             </Style>
                                         </Path.Style>
                                     </Path>
-                                    <Path Data="{StaticResource GeomPause}" Stretch="Uniform" Width="32" Height="32"
+                                    <Path Data="{StaticResource GeomPause}" Stretch="Uniform" Width="40" Height="40"
                                           Fill="{StaticResource IconBrush}" SnapsToDevicePixels="True">
                                         <Path.Style>
                                             <Style TargetType="Path">
