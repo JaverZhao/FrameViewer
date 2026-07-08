@@ -73,6 +73,14 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<string> _recentFolders = new();
 
+    public List<BackgroundModeOption> BackgroundModeOptions { get; } = new()
+    {
+        new() { Tag = "Checkerboard", Display = "棋盘格" },
+        new() { Tag = "Black",       Display = "黑色" },
+        new() { Tag = "White",       Display = "白色" },
+        new() { Tag = "Gray",        Display = "灰色" },
+    };
+
     public MainViewModel()
     {
         _settingsService = new SettingsService();

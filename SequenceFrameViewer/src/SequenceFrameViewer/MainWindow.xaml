@@ -76,39 +76,21 @@
                     <Separator Style="{StaticResource ToolbarSeparatorStyle}" />
 
                     <!-- Background Mode -->
-                    <ComboBox SelectedValue="{Binding BackgroundMode}"
+                    <ComboBox ItemsSource="{Binding BackgroundModeOptions}"
+                              SelectedValue="{Binding BackgroundMode}"
                               SelectedValuePath="Tag"
-                              Height="26"
                               MinWidth="80"
                               ToolTip="背景模式">
-                        <ComboBoxItem Tag="Checkerboard" Height="24">
-                            <StackPanel Orientation="Horizontal">
-                                <Path Data="{StaticResource GeomLayer}" Width="14" Height="14" Stretch="Uniform"
-                                      Fill="{StaticResource IconBrush}" VerticalAlignment="Center" />
-                                <TextBlock Text=" 棋盘格" FontSize="12" VerticalAlignment="Center" />
-                            </StackPanel>
-                        </ComboBoxItem>
-                        <ComboBoxItem Tag="Black" Height="24">
-                            <StackPanel Orientation="Horizontal">
-                                <Path Data="{StaticResource GeomLayer}" Width="14" Height="14" Stretch="Uniform"
-                                      Fill="{StaticResource IconBrush}" VerticalAlignment="Center" />
-                                <TextBlock Text=" 黑色" FontSize="12" VerticalAlignment="Center" />
-                            </StackPanel>
-                        </ComboBoxItem>
-                        <ComboBoxItem Tag="White" Height="24">
-                            <StackPanel Orientation="Horizontal">
-                                <Path Data="{StaticResource GeomLayer}" Width="14" Height="14" Stretch="Uniform"
-                                      Fill="{StaticResource IconBrush}" VerticalAlignment="Center" />
-                                <TextBlock Text=" 白色" FontSize="12" VerticalAlignment="Center" />
-                            </StackPanel>
-                        </ComboBoxItem>
-                        <ComboBoxItem Tag="Gray" Height="24">
-                            <StackPanel Orientation="Horizontal">
-                                <Path Data="{StaticResource GeomLayer}" Width="14" Height="14" Stretch="Uniform"
-                                      Fill="{StaticResource IconBrush}" VerticalAlignment="Center" />
-                                <TextBlock Text=" 灰色" FontSize="12" VerticalAlignment="Center" />
-                            </StackPanel>
-                        </ComboBoxItem>
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Path Data="{StaticResource GeomLayer}" Width="14" Height="14" Stretch="Uniform"
+                                          Fill="{StaticResource IconBrush}" VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding Display}" FontSize="12" Margin="4,0,0,0"
+                                               VerticalAlignment="Center" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
                     </ComboBox>
 
                     <Separator Style="{StaticResource ToolbarSeparatorStyle}" />
