@@ -418,6 +418,17 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
+    <!-- ==================== ToolTip ==================== -->
+    <Style TargetType="ToolTip">
+        <Setter Property="Background" Value="{StaticResource PanelBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource BorderLightBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Padding" Value="6,4" />
+        <Setter Property="HasDropShadow" Value="True" />
+    </Style>
+
     <!-- ==================== ToolBar Toggle Button (for ComboBox-like background toggle) ==================== -->
     <Style x:Key="ToolbarToggleButtonStyle" TargetType="ToggleButton" BasedOn="{StaticResource BaseButtonStyle}">
         <Setter Property="Height" Value="26" />

@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:SequenceFrameViewer.ViewModels"
         xmlns:helpers="clr-namespace:SequenceFrameViewer.Helpers"
         mc:Ignorable="d"
-        Title="FrameView" Height="600" Width="1000"
+        Title="FrameView" Height="940" Width="1400"
         Background="{StaticResource WindowBackgroundBrush}"
         Foreground="{StaticResource ForegroundBrush}"
         WindowStartupLocation="CenterScreen"
@@ -107,7 +107,8 @@
                     <!-- Loop Toggle -->
                     <ToggleButton Style="{StaticResource ToggleIconButtonStyle}"
                                   IsChecked="{Binding IsLooping}"
-                                  ToolTip="循环播放">
+                                  ToolTip="循环播放"
+                                  Margin="6,0,0,0">
                         <Path Data="{StaticResource GeomLoop}" Style="{StaticResource ToolbarIconPath}" />
                     </ToggleButton>
                 </StackPanel>
