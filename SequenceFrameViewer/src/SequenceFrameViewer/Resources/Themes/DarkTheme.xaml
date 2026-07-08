@@ -41,14 +41,14 @@
 
     <Style x:Key="ToolbarButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Padding" Value="8,4" />
-        <Setter Property="Height" Value="28" />
+        <Setter Property="Padding" Value="16,8" />
+        <Setter Property="Height" Value="56" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}"
                             BorderThickness="0"
-                            CornerRadius="4"
+                            CornerRadius="8"
                             Padding="{TemplateBinding Padding}"
                             SnapsToDevicePixels="True">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -71,14 +71,14 @@
     </Style>
 
     <Style x:Key="IconButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
-        <Setter Property="Width" Value="28" />
-        <Setter Property="Height" Value="28" />
+        <Setter Property="Width" Value="56" />
+        <Setter Property="Height" Value="56" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}"
                             BorderThickness="0"
-                            CornerRadius="4"
+                            CornerRadius="8"
                             SnapsToDevicePixels="True">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
@@ -99,14 +99,14 @@
     </Style>
 
     <Style x:Key="ToggleIconButtonStyle" TargetType="ToggleButton" BasedOn="{StaticResource BaseButtonStyle}">
-        <Setter Property="Width" Value="28" />
-        <Setter Property="Height" Value="28" />
+        <Setter Property="Width" Value="56" />
+        <Setter Property="Height" Value="56" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
                     <Border Background="{TemplateBinding Background}"
                             BorderThickness="0"
-                            CornerRadius="4"
+                            CornerRadius="8"
                             SnapsToDevicePixels="True">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
@@ -132,7 +132,7 @@
         <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource BorderLightBrush}" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Padding" Value="4,2" />
+        <Setter Property="Padding" Value="8,4" />
         <Setter Property="CaretBrush" Value="{StaticResource AccentBrush}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -140,7 +140,7 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="3">
+                            CornerRadius="6">
                         <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" />
                     </Border>
                     <ControlTemplate.Triggers>
@@ -162,7 +162,7 @@
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}"
-                CornerRadius="4"
+                CornerRadius="8"
                 SnapsToDevicePixels="True">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -179,8 +179,8 @@
                       Data="M4,7 L8,7 L6,10 Z"
                       Fill="{StaticResource ForegroundSecondaryBrush}"
                       Stretch="Uniform"
-                      Width="8" Height="8"
-                      Margin="0,0,8,0"
+                      Width="16" Height="16"
+                      Margin="0,0,16,0"
                       VerticalAlignment="Center" />
             </Grid>
         </Border>
@@ -201,9 +201,9 @@
         <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource BorderLightBrush}" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Padding" Value="8,2" />
-        <Setter Property="Height" Value="28" />
-        <Setter Property="MinWidth" Value="80" />
+        <Setter Property="Padding" Value="16,4" />
+        <Setter Property="Height" Value="56" />
+        <Setter Property="MinWidth" Value="160" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="Template">
@@ -228,9 +228,9 @@
                             <Border Background="{StaticResource PanelBackgroundBrush}"
                                     BorderBrush="{StaticResource BorderLightBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="4"
-                                    Margin="0,2,0,0"
-                                    MaxHeight="300"
+                                    CornerRadius="8"
+                                    Margin="0,4,0,0"
+                                    MaxHeight="600"
                                     SnapsToDevicePixels="True"
                                     UseLayoutRounding="True">
                                 <ScrollViewer>
@@ -253,7 +253,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Padding" Value="8,6" />
+        <Setter Property="Padding" Value="16,12" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="Template">
@@ -262,8 +262,8 @@
                     <Border x:Name="Border"
                             Background="{TemplateBinding Background}"
                             BorderThickness="0"
-                            CornerRadius="3"
-                            Margin="2"
+                            CornerRadius="6"
+                            Margin="4"
                             Padding="{TemplateBinding Padding}"
                             SnapsToDevicePixels="True">
                         <ContentPresenter VerticalAlignment="Center" />
@@ -287,11 +287,11 @@
 
     <!-- ==================== Slider Thumb Template ==================== -->
     <ControlTemplate x:Key="SliderThumbTemplate" TargetType="Thumb">
-        <Ellipse x:Name="ThumbEllipse" Fill="{StaticResource AccentBrush}" Width="12" Height="12" />
+        <Ellipse x:Name="ThumbEllipse" Fill="{StaticResource AccentBrush}" Width="24" Height="24" />
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="ThumbEllipse" Property="Width" Value="14" />
-                <Setter TargetName="ThumbEllipse" Property="Height" Value="14" />
+                <Setter TargetName="ThumbEllipse" Property="Width" Value="28" />
+                <Setter TargetName="ThumbEllipse" Property="Height" Value="28" />
             </Trigger>
             <Trigger Property="IsDragging" Value="True">
                 <Setter TargetName="ThumbEllipse" Property="Fill" Value="{StaticResource AccentHoverBrush}" />
@@ -301,7 +301,7 @@
 
     <!-- ==================== Slider ==================== -->
     <Style TargetType="Slider">
-        <Setter Property="Height" Value="20" />
+        <Setter Property="Height" Value="40" />
         <Setter Property="Minimum" Value="0" />
         <Setter Property="Maximum" Value="100" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -311,7 +311,7 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" MinHeight="4" />
+                            <RowDefinition Height="Auto" MinHeight="8" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Track Grid.Row="1" x:Name="PART_Track">
@@ -320,8 +320,8 @@
                                     <RepeatButton.Template>
                                         <ControlTemplate>
                                             <Rectangle Fill="{StaticResource AccentBrush}"
-                                                       RadiusY="2" RadiusX="2"
-                                                       Height="4" VerticalAlignment="Center" />
+                                                       RadiusY="4" RadiusX="4"
+                                                       Height="8" VerticalAlignment="Center" />
                                         </ControlTemplate>
                                     </RepeatButton.Template>
                                 </RepeatButton>
@@ -331,14 +331,14 @@
                                     <RepeatButton.Template>
                                         <ControlTemplate>
                                             <Rectangle Fill="#3E3E3E"
-                                                       RadiusY="2" RadiusX="2"
-                                                       Height="4" VerticalAlignment="Center" />
+                                                       RadiusY="4" RadiusX="4"
+                                                       Height="8" VerticalAlignment="Center" />
                                         </ControlTemplate>
                                     </RepeatButton.Template>
                                 </RepeatButton>
                             </Track.IncreaseRepeatButton>
                             <Track.Thumb>
-                                <Thumb Width="12" Height="12" Cursor="Hand"
+                                <Thumb Width="24" Height="24" Cursor="Hand"
                                        Template="{StaticResource SliderThumbTemplate}" />
                             </Track.Thumb>
                         </Track>
@@ -361,22 +361,22 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0" x:Name="CheckBoxBorder"
-                                Width="16" Height="16"
+                                Width="32" Height="32"
                                 Background="{StaticResource ControlBackgroundBrush}"
                                 BorderBrush="{StaticResource BorderLightBrush}"
                                 BorderThickness="1"
-                                CornerRadius="3"
-                                Margin="0,0,6,0"
+                                CornerRadius="6"
+                                Margin="0,0,12,0"
                                 VerticalAlignment="Center">
                             <Path x:Name="CheckMark"
                                   Data="M4,9 L7,12 L12,5"
                                   Stretch="Uniform"
                                   Stroke="{StaticResource AccentBrush}"
-                                  StrokeThickness="2"
+                                  StrokeThickness="3"
                                   StrokeEndLineCap="Round"
                                   StrokeStartLineCap="Round"
                                   Visibility="Collapsed"
-                                  Margin="1"
+                                  Margin="2"
                                   SnapsToDevicePixels="False" />
                         </Border>
                         <ContentPresenter Grid.Column="1" RecognizesAccessKey="True"
@@ -400,7 +400,7 @@
     <!-- ==================== Label ==================== -->
     <Style TargetType="Label">
         <Setter Property="Foreground" Value="{StaticResource ForegroundSecondaryBrush}" />
-        <Setter Property="Padding" Value="4,0" />
+        <Setter Property="Padding" Value="8,0" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
@@ -413,8 +413,8 @@
     <Style x:Key="ToolbarSeparatorStyle" TargetType="Separator">
         <Setter Property="Background" Value="{StaticResource BorderBrush}" />
         <Setter Property="Width" Value="1" />
-        <Setter Property="Height" Value="18" />
-        <Setter Property="Margin" Value="4,0" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="Margin" Value="8,0" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
@@ -424,22 +424,22 @@
         <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource BorderLightBrush}" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="Padding" Value="6,4" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="Padding" Value="12,8" />
         <Setter Property="HasDropShadow" Value="True" />
     </Style>
 
     <!-- ==================== ToolBar Toggle Button (for ComboBox-like background toggle) ==================== -->
     <Style x:Key="ToolbarToggleButtonStyle" TargetType="ToggleButton" BasedOn="{StaticResource BaseButtonStyle}">
-        <Setter Property="Height" Value="26" />
-        <Setter Property="Padding" Value="6,2" />
+        <Setter Property="Height" Value="52" />
+        <Setter Property="Padding" Value="12,4" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
                     <Border Background="{TemplateBinding Background}"
                             BorderThickness="1"
                             BorderBrush="{StaticResource BorderLightBrush}"
-                            CornerRadius="3"
+                            CornerRadius="6"
                             Padding="{TemplateBinding Padding}"
                             SnapsToDevicePixels="True">
                         <Grid>
@@ -450,8 +450,8 @@
                             <ContentPresenter Grid.Column="0" VerticalAlignment="Center" />
                             <Path Grid.Column="1" Data="M5,8 L9,8 L7,11 Z"
                                   Fill="{StaticResource ForegroundSecondaryBrush}"
-                                  Stretch="Uniform" Width="8" Height="8"
-                                  Margin="4,0,0,0" VerticalAlignment="Center" />
+                                  Stretch="Uniform" Width="16" Height="16"
+                                  Margin="8,0,0,0" VerticalAlignment="Center" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>

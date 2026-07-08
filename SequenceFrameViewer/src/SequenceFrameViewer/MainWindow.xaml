@@ -20,8 +20,8 @@
         <helpers:BackgroundModeConverter x:Key="BackgroundModeConverter" />
 
         <Style x:Key="ToolbarIconPath" TargetType="Path">
-            <Setter Property="Width" Value="16" />
-            <Setter Property="Height" Value="16" />
+            <Setter Property="Width" Value="32" />
+            <Setter Property="Height" Value="32" />
             <Setter Property="Stretch" Value="Uniform" />
             <Setter Property="Fill" Value="{StaticResource IconBrush}" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -41,7 +41,7 @@
                 Background="{StaticResource ToolbarBackgroundBrush}"
                 BorderBrush="{StaticResource BorderBrush}"
                 BorderThickness="0,0,0,1"
-                Padding="4,2">
+                Padding="8,4">
             <DockPanel LastChildFill="False">
                 <!-- Left section -->
                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
@@ -50,20 +50,20 @@
                     <Button Style="{StaticResource ToolbarButtonStyle}" Command="{Binding OpenFolderCommand}" ToolTip="打开文件夹 (Ctrl+O)">
                         <StackPanel Orientation="Horizontal">
                             <Path Data="{StaticResource GeomFolderOpen}" Style="{StaticResource ToolbarIconPath}" />
-                            <TextBlock Text="打开" Margin="4,0,0,0" FontSize="13" />
+                            <TextBlock Text="打开" Margin="8,0,0,0" FontSize="26" />
                         </StackPanel>
                     </Button>
 
                     <!-- Recent Folders -->
                     <ComboBox ItemsSource="{Binding RecentFolders}"
-                              Width="120"
-                              Height="26"
-                              Margin="2,0"
+                              Width="240"
+                              Height="52"
+                              Margin="4,0"
                               ToolTip="最近打开"
                               SelectionChanged="OnRecentFolderSelectionChanged">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding}" TextTrimming="CharacterEllipsis" FontSize="12" />
+                                <TextBlock Text="{Binding}" TextTrimming="CharacterEllipsis" FontSize="24" />
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
@@ -79,14 +79,14 @@
                     <ComboBox ItemsSource="{Binding BackgroundModeOptions}"
                               SelectedValue="{Binding BackgroundMode}"
                               SelectedValuePath="Tag"
-                              MinWidth="80"
+                              MinWidth="160"
                               ToolTip="背景模式">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Path Data="{StaticResource GeomLayer}" Width="14" Height="14" Stretch="Uniform"
+                                    <Path Data="{StaticResource GeomLayer}" Width="28" Height="28" Stretch="Uniform"
                                           Fill="{StaticResource IconBrush}" VerticalAlignment="Center" />
-                                    <TextBlock Text="{Binding Display}" FontSize="12" Margin="4,0,0,0"
+                                    <TextBlock Text="{Binding Display}" FontSize="24" Margin="8,0,0,0"
                                                VerticalAlignment="Center" />
                                 </StackPanel>
                             </DataTemplate>
@@ -96,19 +96,19 @@
                     <Separator Style="{StaticResource ToolbarSeparatorStyle}" />
 
                     <!-- FPS -->
-                    <Label Content="FPS" VerticalAlignment="Center" FontSize="12" />
+                    <Label Content="FPS" VerticalAlignment="Center" FontSize="24" />
                     <TextBox x:Name="FpsTextBox"
                              Text="{Binding Fps, UpdateSourceTrigger=PropertyChanged}"
-                             Width="48"
-                             Height="24"
-                             FontSize="12"
+                             Width="96"
+                             Height="48"
+                             FontSize="24"
                              HorizontalContentAlignment="Center" />
 
                     <!-- Loop Toggle -->
                     <ToggleButton Style="{StaticResource ToggleIconButtonStyle}"
                                   IsChecked="{Binding IsLooping}"
                                   ToolTip="循环播放"
-                                  Margin="6,0,0,0">
+                                  Margin="12,0,0,0">
                         <Path Data="{StaticResource GeomLoop}" Style="{StaticResource ToolbarIconPath}" />
                     </ToggleButton>
                 </StackPanel>
@@ -129,9 +129,9 @@
                     <!-- Zoom Level -->
                     <TextBlock Text="{Binding ZoomText}"
                                VerticalAlignment="Center"
-                               FontSize="12"
+                               FontSize="24"
                                Foreground="{StaticResource ForegroundSecondaryBrush}"
-                               Margin="4,0,8,0" />
+                               Margin="8,0,16,0" />
 
                     <Separator Style="{StaticResource ToolbarSeparatorStyle}" />
 
@@ -180,7 +180,7 @@
                 <TextBlock Text="{Binding EmptyStateMessage}"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
-                           FontSize="16"
+                           FontSize="32"
                            Foreground="{StaticResource ForegroundMutedBrush}">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
@@ -209,7 +209,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Timeline Slider -->
-                <Border Grid.Row="0" Padding="8,0" Background="{StaticResource PanelBackgroundBrush}">
+                <Border Grid.Row="0" Padding="16,0" Background="{StaticResource PanelBackgroundBrush}">
                     <Slider x:Name="FrameSlider"
                             Minimum="0"
                             Maximum="1"
@@ -218,11 +218,11 @@
                             TickFrequency="1"
                             SmallChange="1"
                             LargeChange="10"
-                            Height="18" />
+                            Height="36" />
                 </Border>
 
                 <!-- Controls Bar -->
-                <Border Grid.Row="1" Padding="6,2,8,2" Background="{StaticResource ToolbarBackgroundBrush}">
+                <Border Grid.Row="1" Padding="12,4,16,4" Background="{StaticResource ToolbarBackgroundBrush}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -248,7 +248,7 @@
                                     Command="{Binding PlayPauseCommand}"
                                     ToolTip="播放 / 暂停 (Space)">
                                 <Grid>
-                                    <Path Data="{StaticResource GeomPlay}" Stretch="Uniform" Width="16" Height="16"
+                                    <Path Data="{StaticResource GeomPlay}" Stretch="Uniform" Width="32" Height="32"
                                           Fill="{StaticResource IconBrush}" SnapsToDevicePixels="True">
                                         <Path.Style>
                                             <Style TargetType="Path">
@@ -261,7 +261,7 @@
                                             </Style>
                                         </Path.Style>
                                     </Path>
-                                    <Path Data="{StaticResource GeomPause}" Stretch="Uniform" Width="16" Height="16"
+                                    <Path Data="{StaticResource GeomPause}" Stretch="Uniform" Width="32" Height="32"
                                           Fill="{StaticResource IconBrush}" SnapsToDevicePixels="True">
                                         <Path.Style>
                                             <Style TargetType="Path">
@@ -291,21 +291,21 @@
                         </StackPanel>
 
                         <!-- Frame Info -->
-                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10,0,0,0" VerticalAlignment="Center">
-                            <TextBlock FontSize="12" Foreground="{StaticResource ForegroundSecondaryBrush}">
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="20,0,0,0" VerticalAlignment="Center">
+                            <TextBlock FontSize="24" Foreground="{StaticResource ForegroundSecondaryBrush}">
                                 <Run Text="帧" /><Run Text=":" />
                             </TextBlock>
-                            <TextBlock Text="{Binding CurrentFrameIndex}" FontSize="12" Margin="2,0,0,0" />
-                            <TextBlock Text="/" FontSize="12" Margin="4,0" Foreground="{StaticResource ForegroundMutedBrush}" />
-                            <TextBlock Text="{Binding TotalFrames}" FontSize="12" />
-                            <TextBlock Text="|" FontSize="12" Margin="8,0" Foreground="{StaticResource ForegroundMutedBrush}" />
-                            <TextBlock Text="{Binding FrameSizeText}" FontSize="12"
+                            <TextBlock Text="{Binding CurrentFrameIndex}" FontSize="24" Margin="4,0,0,0" />
+                            <TextBlock Text="/" FontSize="24" Margin="8,0" Foreground="{StaticResource ForegroundMutedBrush}" />
+                            <TextBlock Text="{Binding TotalFrames}" FontSize="24" />
+                            <TextBlock Text="|" FontSize="24" Margin="16,0" Foreground="{StaticResource ForegroundMutedBrush}" />
+                            <TextBlock Text="{Binding FrameSizeText}" FontSize="24"
                                        Foreground="{StaticResource ForegroundSecondaryBrush}" />
-                            <TextBlock Text="|" FontSize="12" Margin="8,0" Foreground="{StaticResource ForegroundMutedBrush}" />
-                            <TextBlock Text="{Binding CurrentFileName}" FontSize="12"
+                            <TextBlock Text="|" FontSize="24" Margin="16,0" Foreground="{StaticResource ForegroundMutedBrush}" />
+                            <TextBlock Text="{Binding CurrentFileName}" FontSize="24"
                                        Foreground="{StaticResource ForegroundSecondaryBrush}"
                                        TextTrimming="CharacterEllipsis"
-                                       MaxWidth="180" />
+                                       MaxWidth="360" />
                         </StackPanel>
                     </Grid>
                 </Border>
