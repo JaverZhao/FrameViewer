@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using SequenceFrameViewer.ViewModels;
 
 namespace SequenceFrameViewer;
@@ -19,6 +20,9 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        var iconPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Icons", "app.ico");
+        if (System.IO.File.Exists(iconPath))
+            Icon = new BitmapImage(new Uri(iconPath));
         AllowDrop = true;
         AddHandler(DropEvent, new DragEventHandler(OnDrop));
 

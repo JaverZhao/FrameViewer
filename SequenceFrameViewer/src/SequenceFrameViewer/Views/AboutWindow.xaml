@@ -4,8 +4,8 @@
         Title="关于 FrameView"
         Height="280" Width="400"
         WindowStartupLocation="CenterOwner"
-        Background="#2D2D2D"
-        Foreground="#CCCCCC"
+        Background="{StaticResource PanelBackgroundBrush}"
+        Foreground="{StaticResource ForegroundBrush}"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         WindowStyle="SingleBorderWindow">
