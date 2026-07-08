@@ -29,7 +29,12 @@ public class PlaybackEngine
     public double Fps
     {
         get => _fps;
-        set => _fps = Math.Clamp(value, 1, 120);
+        set
+        {
+            _fps = Math.Clamp(value, 1, 120);
+            if (State == PlaybackState.Playing)
+                UpdateTimerInterval();
+        }
     }
 
     public bool Loop

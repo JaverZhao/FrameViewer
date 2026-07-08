@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -293,7 +294,14 @@ public partial class MainViewModel : ObservableObject
 
     private async void OnEngineFrameChanged(int index)
     {
-        await GoToFrame(index);
+        try
+        {
+            await GoToFrame(index);
+        }
+        catch (Exception ex)
+        {
+            LogService.Error("Engine frame changed error", ex);
+        }
     }
 
     private void OnEnginePlaybackEnded()
