@@ -29,19 +29,23 @@ public class FrameDecoder
             if (!File.Exists(filePath))
                 return null;
 
+            var data = File.ReadAllBytes(filePath);
+            var stream = new System.IO.MemoryStream(data);
+
             var bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.CacheOption = BitmapCacheOption.OnLoad;
-            bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-            bitmap.UriSource = new Uri(filePath);
+            bitmap.StreamSource = stream;
             bitmap.EndInit();
             bitmap.Freeze();
+            stream.Dispose();
 
             _cache?.Add(filePath, bitmap);
             return bitmap;
         }
-        catch
+        catch (Exception ex)
         {
+            LogService.Error($"Decode failed: {filePath}", ex);
             return null;
         }
     }
