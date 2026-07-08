@@ -19,6 +19,8 @@
     <Window.Resources>
         <helpers:BackgroundModeConverter x:Key="BackgroundModeConverter" />
         <helpers:BoolInvertConverter x:Key="BoolInvertConverter" />
+                        <helpers:FolderNameConverter x:Key="FolderNameConverter" />
+        <helpers:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
         <Style x:Key="ToolbarIconPath" TargetType="Path">
             <Setter Property="Width" Value="32" />
@@ -56,18 +58,26 @@
                     </Button>
 
                     <!-- Recent Folders -->
-                    <ComboBox ItemsSource="{Binding RecentFolders}"
-                              Width="240"
-                              Height="52"
-                              Margin="4,0"
-                              ToolTip="最近打开"
-                              SelectionChanged="OnRecentFolderSelectionChanged">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding}" TextTrimming="CharacterEllipsis" FontSize="24" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                    <Grid Width="240" Margin="4,0">
+                        <ComboBox ItemsSource="{Binding RecentFolders}"
+                                  ToolTip="最近打开"
+                                  SelectionChanged="OnRecentFolderSelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource FolderNameConverter}}"
+                                               TextTrimming="CharacterEllipsis" FontSize="24" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Text="最近打开..."
+                                   IsHitTestVisible="False"
+                                   FontSize="24"
+                                   Foreground="{StaticResource ForegroundSecondaryBrush}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Stretch"
+                                   Margin="20,0,0,0"
+                                   SnapsToDevicePixels="True" />
+                    </Grid>
 
                     <!-- Reload -->
                     <Button Style="{StaticResource IconButtonStyle}" Command="{Binding ReloadCommand}" ToolTip="重新加载 (Ctrl+R)">
