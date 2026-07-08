@@ -300,7 +300,7 @@
                                     Command="{Binding PlayPauseCommand}"
                                     ToolTip="播放 / 暂停 (Space)">
                                 <Grid>
-                                    <Path Data="{StaticResource GeomPlay}" Stretch="Uniform" Width="40" Height="40"
+                                    <Path Data="{StaticResource GeomPlay}" Stretch="Uniform" Width="52" Height="52"
                                           Fill="{StaticResource IconBrush}" SnapsToDevicePixels="True">
                                         <Path.Style>
                                             <Style TargetType="Path">
