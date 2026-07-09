@@ -1,8 +1,8 @@
 [English](README.md)
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../AppIcon.png">
-  <img alt="FrameView" src="../AppIcon.png" width="96" align="right">
+  <source media="(prefers-color-scheme: dark)" srcset="AppIcon.png">
+  <img alt="FrameView" src="AppIcon.png" width="96" align="right">
 </picture>
 
 # FrameView
@@ -15,7 +15,7 @@
 
 ## 截图
 
-![FrameView 截图](other/FrameView_screenshot.png)
+![FrameView 截图](SequenceFrameViewer/other/FrameView_screenshot.png)
 
 ---
 

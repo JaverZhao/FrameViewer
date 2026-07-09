@@ -1,6 +1,6 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="../AppIcon.png">
-  <img alt="FrameView" src="../AppIcon.png" width="96" align="right">
+  <source media="(prefers-color-scheme: dark)" srcset="AppIcon.png">
+  <img alt="FrameView" src="AppIcon.png" width="96" align="right">
 </picture>
 
 # FrameView
@@ -15,7 +15,7 @@ FrameView lets you open a folder of sequentially numbered frames (PNG, JPG, WebP
 
 ## Screenshot
 
-![FrameView Screenshot](other/FrameView_screenshot.png)
+![FrameView Screenshot](SequenceFrameViewer/other/FrameView_screenshot.png)
 
 ---
 
