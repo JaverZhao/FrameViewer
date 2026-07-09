@@ -1,9 +1,6 @@
 [English](README.md)
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="AppIcon.png">
-  <img alt="FrameView" src="AppIcon.png" width="96" align="right">
-</picture>
+<p align="center"><img alt="FrameView" src="AppIcon.png" width="96"></p>
 
 # FrameView
 
