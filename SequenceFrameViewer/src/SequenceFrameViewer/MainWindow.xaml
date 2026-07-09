@@ -1,10 +1,11 @@
-﻿<Window x:Class="SequenceFrameViewer.MainWindow"
+<Window x:Class="SequenceFrameViewer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:SequenceFrameViewer.ViewModels"
         xmlns:helpers="clr-namespace:SequenceFrameViewer.Helpers"
+        xmlns:resx="clr-namespace:SequenceFrameViewer.Resources"
         mc:Ignorable="d"
         Title="FrameView" Height="940" Width="1400"
         Background="{StaticResource WindowBackgroundBrush}"
@@ -50,17 +51,17 @@
                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
 
                     <!-- Open Folder -->
-                    <Button Style="{StaticResource ToolbarButtonStyle}" Command="{Binding OpenFolderCommand}" ToolTip="打开文件夹 (Ctrl+O)">
+                    <Button Style="{StaticResource ToolbarButtonStyle}" Command="{Binding OpenFolderCommand}" ToolTip="{Binding [OpenFolderTooltip], Source={x:Static resx:LocalizationService.Default}}">
                         <StackPanel Orientation="Horizontal">
                             <Path Data="{StaticResource GeomFolderOpen}" Style="{StaticResource ToolbarIconPath}" />
-                            <TextBlock Text="打开" Margin="8,0,0,0" FontSize="21" />
+                            <TextBlock Text="{Binding [Open], Source={x:Static resx:LocalizationService.Default}}" Margin="8,0,0,0" FontSize="21" />
                         </StackPanel>
                     </Button>
 
                     <!-- Recent Folders -->
                     <Grid Width="240" Margin="4,0">
                         <ComboBox ItemsSource="{Binding RecentFolders}"
-                                  ToolTip="最近打开"
+                                  ToolTip="{Binding [RecentFoldersTooltip], Source={x:Static resx:LocalizationService.Default}}"
                                   SelectionChanged="OnRecentFolderSelectionChanged">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -69,7 +70,7 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <TextBlock Text="最近打开..."
+                        <TextBlock Text="{Binding [RecentFoldersPlaceholder], Source={x:Static resx:LocalizationService.Default}}"
                                    IsHitTestVisible="False"
                                    FontSize="19"
                                    Foreground="{StaticResource ForegroundSecondaryBrush}"
@@ -80,7 +81,7 @@
                     </Grid>
 
                     <!-- Reload -->
-                    <Button Style="{StaticResource IconButtonStyle}" Command="{Binding ReloadCommand}" ToolTip="重新加载 (Ctrl+R)">
+                    <Button Style="{StaticResource IconButtonStyle}" Command="{Binding ReloadCommand}" ToolTip="{Binding [ReloadTooltip], Source={x:Static resx:LocalizationService.Default}}">
                         <Path Data="{StaticResource GeomReload}" Style="{StaticResource ToolbarIconPath}" />
                     </Button>
 
@@ -91,7 +92,7 @@
                               SelectedValue="{Binding BackgroundMode}"
                               SelectedValuePath="Tag"
                               MinWidth="160"
-                              ToolTip="背景模式">
+                              ToolTip="{Binding [BackgroundModeTooltip], Source={x:Static resx:LocalizationService.Default}}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -107,7 +108,7 @@
                     <Separator Style="{StaticResource ToolbarSeparatorStyle}" />
 
                     <!-- FPS -->
-                    <Label Content="FPS" VerticalAlignment="Center" FontSize="19" />
+                    <Label Content="{Binding [FpsLabel], Source={x:Static resx:LocalizationService.Default}}" VerticalAlignment="Center" FontSize="19" />
                      <TextBox x:Name="FpsTextBox"
                               Text="{Binding Fps, UpdateSourceTrigger=PropertyChanged}"
                               Width="96"
@@ -119,7 +120,7 @@
                     <!-- Loop Toggle -->
                     <ToggleButton Style="{StaticResource ToggleIconButtonStyle}"
                                   IsChecked="{Binding IsLooping}"
-                                  ToolTip="循环播放"
+                                  ToolTip="{Binding [LoopTooltip], Source={x:Static resx:LocalizationService.Default}}"
                                   Margin="12,0,0,0">
                         <Path Data="{StaticResource GeomLoop}" Width="32" Height="32" Stretch="Uniform"
                               SnapsToDevicePixels="True" UseLayoutRounding="True">
@@ -144,7 +145,7 @@
                     <ToggleButton Style="{StaticResource ToggleIconButtonStyle}"
                                   IsChecked="{Binding IsFitToWindow, Mode=OneWay}"
                                   Command="{Binding FitWindowCommand}"
-                                  ToolTip="适配窗口 (F)">
+                                  ToolTip="{Binding [FitWindowTooltip], Source={x:Static resx:LocalizationService.Default}}">
                         <Path Data="{StaticResource GeomFit}" Width="32" Height="32" Stretch="Uniform"
                               SnapsToDevicePixels="True" UseLayoutRounding="True">
                             <Path.Style>
@@ -164,7 +165,7 @@
                     <ToggleButton Style="{StaticResource ToggleIconButtonStyle}"
                                   IsChecked="{Binding IsFitToWindow, Converter={StaticResource BoolInvertConverter}, Mode=OneWay}"
                                   Command="{Binding ZoomOriginalCommand}"
-                                  ToolTip="原始大小 (1)">
+                                  ToolTip="{Binding [OriginalSizeTooltip], Source={x:Static resx:LocalizationService.Default}}">
                         <Path Data="{StaticResource GeomOriginal}" Width="32" Height="32" Stretch="Uniform"
                               SnapsToDevicePixels="True" UseLayoutRounding="True">
                             <Path.Style>
@@ -187,10 +188,22 @@
                                Foreground="{StaticResource ForegroundSecondaryBrush}"
                                Margin="8,0,16,0" />
 
+                    <!-- Language -->
+                    <ComboBox x:Name="LanguageCombo"
+                              SelectedIndex="0"
+                              MinWidth="120"
+                              Height="56"
+                              FontSize="19"
+                              VerticalAlignment="Center"
+                              SelectionChanged="OnLanguageChanged">
+                        <ComboBoxItem Content="中文" />
+                        <ComboBoxItem Content="English" />
+                    </ComboBox>
+
                     <Separator Style="{StaticResource ToolbarSeparatorStyle}" />
 
                     <!-- About -->
-                    <Button Style="{StaticResource IconButtonStyle}" Command="{Binding ShowAboutCommand}" ToolTip="关于">
+                    <Button Style="{StaticResource IconButtonStyle}" Command="{Binding ShowAboutCommand}" ToolTip="{Binding [AboutTooltip], Source={x:Static resx:LocalizationService.Default}}">
                         <Path Data="{StaticResource GeomInfo}" Style="{StaticResource ToolbarIconPath}" />
                     </Button>
                 </StackPanel>
@@ -287,19 +300,19 @@
                         <StackPanel Grid.Column="0" Orientation="Horizontal">
                             <Button Style="{StaticResource IconButtonStyle}"
                                     Command="{Binding GoToFirstFrameCommand}"
-                                    ToolTip="首帧 (Home)">
+                                    ToolTip="{Binding [FirstFrameTooltip], Source={x:Static resx:LocalizationService.Default}}">
                                 <Path Data="{StaticResource GeomFirstFrame}"
                                       Style="{StaticResource ToolbarIconPath}" />
                             </Button>
                             <Button Style="{StaticResource IconButtonStyle}"
                                     Command="{Binding PreviousFrameCommand}"
-                                    ToolTip="上一帧 (←)">
+                                    ToolTip="{Binding [PrevFrameTooltip], Source={x:Static resx:LocalizationService.Default}}">
                                 <Path Data="{StaticResource GeomPrevFrame}"
                                       Style="{StaticResource ToolbarIconPath}" />
                             </Button>
                             <Button Style="{StaticResource PlayButtonStyle}"
                                     Command="{Binding PlayPauseCommand}"
-                                    ToolTip="播放 / 暂停 (Space)">
+                                    ToolTip="{Binding [PlayPauseTooltip], Source={x:Static resx:LocalizationService.Default}}">
                                 <Grid>
                                     <Path Data="{StaticResource GeomPlay}" Stretch="Uniform" Width="52" Height="52"
                                           Fill="{StaticResource IconBrush}" SnapsToDevicePixels="True">
@@ -331,13 +344,13 @@
                             </Button>
                             <Button Style="{StaticResource IconButtonStyle}"
                                     Command="{Binding NextFrameCommand}"
-                                    ToolTip="下一帧 (→)">
+                                    ToolTip="{Binding [NextFrameTooltip], Source={x:Static resx:LocalizationService.Default}}">
                                 <Path Data="{StaticResource GeomNextFrame}"
                                       Style="{StaticResource ToolbarIconPath}" />
                             </Button>
                             <Button Style="{StaticResource IconButtonStyle}"
                                     Command="{Binding GoToLastFrameCommand}"
-                                    ToolTip="尾帧 (End)">
+                                    ToolTip="{Binding [LastFrameTooltip], Source={x:Static resx:LocalizationService.Default}}">
                                 <Path Data="{StaticResource GeomLastFrame}"
                                       Style="{StaticResource ToolbarIconPath}" />
                             </Button>
@@ -345,9 +358,10 @@
 
                         <!-- Frame Info -->
                         <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="20,0,0,0" VerticalAlignment="Center">
-                            <TextBlock FontSize="19" Foreground="{StaticResource ForegroundSecondaryBrush}">
-                                <Run Text="帧" /><Run Text=":" />
-                            </TextBlock>
+                            <TextBlock FontSize="19" Foreground="{StaticResource ForegroundSecondaryBrush}"
+                                       Text="{Binding [FrameLabel], Source={x:Static resx:LocalizationService.Default}}" />
+                            <TextBlock Text=":" FontSize="19"
+                                       Foreground="{StaticResource ForegroundSecondaryBrush}" />
                             <TextBlock Text="{Binding CurrentFrameIndex}" FontSize="19" Margin="4,0,0,0" />
                             <TextBlock Text="/" FontSize="19" Margin="8,0" Foreground="{StaticResource ForegroundMutedBrush}" />
                             <TextBlock Text="{Binding TotalFrames}" FontSize="19" />

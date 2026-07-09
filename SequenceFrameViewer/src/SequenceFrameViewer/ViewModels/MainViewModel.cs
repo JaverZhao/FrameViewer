@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SequenceFrameViewer.Models;
+using SequenceFrameViewer.Resources;
 using SequenceFrameViewer.Services;
 using SequenceFrameViewer.Views;
 
@@ -52,7 +53,7 @@ public partial class MainViewModel : ObservableObject
     private bool _isEmpty = true;
 
     [ObservableProperty]
-    private string _emptyStateMessage = "拖入序列帧文件夹开始预览";
+    private string _emptyStateMessage = LocalizationService.Default.EmptyState;
 
     [ObservableProperty]
     private string _backgroundMode = "Checkerboard";
@@ -67,7 +68,7 @@ public partial class MainViewModel : ObservableObject
     private bool _isFitToWindow = true;
 
     [ObservableProperty]
-    private string _zoomText = "适配窗口";
+    private string _zoomText = LocalizationService.Default.FitWindow;
 
     [ObservableProperty]
     private double _frameSliderValue;
@@ -75,13 +76,12 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<string> _recentFolders = new();
 
-    public List<BackgroundModeOption> BackgroundModeOptions { get; } = new()
+    private List<BackgroundModeOption> _backgroundModeOptions = new();
+    public List<BackgroundModeOption> BackgroundModeOptions
     {
-        new() { Tag = "Checkerboard", Display = "棋盘格" },
-        new() { Tag = "Black",       Display = "黑色" },
-        new() { Tag = "White",       Display = "白色" },
-        new() { Tag = "Gray",        Display = "灰色" },
-    };
+        get => _backgroundModeOptions;
+        set => SetProperty(ref _backgroundModeOptions, value);
+    }
 
     public MainViewModel()
     {
@@ -98,7 +98,43 @@ public partial class MainViewModel : ObservableObject
 
         LogService.Info("Application started");
         LoadSettings();
+        InitBackgroundModeOptions();
+        LocalizationService.Default.PropertyChanged += (_, _) => OnLanguageChanged();
     }
+
+    private void InitBackgroundModeOptions()
+    {
+        BackgroundModeOptions = CreateBackgroundModeOptions();
+    }
+
+    private static List<BackgroundModeOption> CreateBackgroundModeOptions()
+    {
+        return new()
+        {
+            new() { Tag = "Checkerboard", Display = LocalizationService.Default.Checkerboard },
+            new() { Tag = "Black",       Display = LocalizationService.Default.Black },
+            new() { Tag = "White",       Display = LocalizationService.Default.White },
+            new() { Tag = "Gray",        Display = LocalizationService.Default.Gray },
+        };
+    }
+
+    private void OnLanguageChanged()
+    {
+        BackgroundModeOptions = CreateBackgroundModeOptions();
+
+        if (IsEmpty && EmptyStateMessage != string.Empty)
+            EmptyStateMessage = LocalizationService.Default.EmptyState;
+
+        if (ZoomText == LocalizationService.Default.FitWindow || ZoomText == LocalizationService.Default.OriginalSize)
+        {
+            if (IsFitToWindow)
+                ZoomText = LocalizationService.Default.FitWindow;
+            else
+                UpdateZoomText();
+        }
+    }
+
+    public string SettingsLanguage { get; set; } = "zh";
 
     public void LoadSettings()
     {
@@ -106,6 +142,7 @@ public partial class MainViewModel : ObservableObject
         Fps = settings.DefaultFps;
         IsLooping = settings.LoopPlayback;
         BackgroundMode = settings.BackgroundMode;
+        SettingsLanguage = settings.Language;
         _engine.Fps = settings.DefaultFps;
         _engine.Loop = settings.LoopPlayback;
 
@@ -123,6 +160,7 @@ public partial class MainViewModel : ObservableObject
             DefaultFps = (int)Fps,
             LoopPlayback = IsLooping,
             BackgroundMode = BackgroundMode,
+            Language = SettingsLanguage,
             RecentFolders = RecentFolders.ToList(),
             MaxCacheMemoryMb = 512,
             LastWindowWidth = Width,
@@ -154,7 +192,7 @@ public partial class MainViewModel : ObservableObject
 
         if (sequence.IsEmpty)
         {
-            EmptyStateMessage = "文件夹中没有支持的图片文件";
+            EmptyStateMessage = LocalizationService.Default.NoImagesFound;
             LogService.Warning($"No supported images found in {folderPath}");
             return;
         }
@@ -296,20 +334,20 @@ public partial class MainViewModel : ObservableObject
     {
         ZoomLevel = 1.0;
         IsFitToWindow = true;
-        ZoomText = "适配窗口";
+        ZoomText = LocalizationService.Default.FitWindow;
     }
 
     public void OriginalSize()
     {
         ZoomLevel = 1.0;
         IsFitToWindow = false;
-        ZoomText = "原始大小";
+        ZoomText = LocalizationService.Default.OriginalSize;
     }
 
     private void UpdateZoomText()
     {
         if (!IsFitToWindow && Math.Abs(ZoomLevel - 1.0) < 0.01)
-            ZoomText = "原始大小";
+            ZoomText = LocalizationService.Default.OriginalSize;
         else
             ZoomText = $"{(int)(ZoomLevel * 100)}%";
     }
@@ -346,7 +384,7 @@ public partial class MainViewModel : ObservableObject
     {
         var dialog = new System.Windows.Forms.FolderBrowserDialog
         {
-            Description = "选择序列帧文件夹"
+            Description = LocalizationService.Default.SelectFolder
         };
 
         if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)

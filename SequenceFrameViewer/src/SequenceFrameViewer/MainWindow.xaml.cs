@@ -6,6 +6,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using SequenceFrameViewer.Resources;
 using SequenceFrameViewer.ViewModels;
 
 namespace SequenceFrameViewer;
@@ -17,6 +18,7 @@ public partial class MainWindow : Window
     private double _scale = 1.0;
     private double _offsetX;
     private double _offsetY;
+    private bool _languageChanging;
     public MainWindow()
     {
         InitializeComponent();
@@ -42,6 +44,10 @@ public partial class MainWindow : Window
         };
 
         PreviewKeyDown += OnPreviewKeyDown;
+
+        // Initialize language combo
+        var savedLang = ViewModel.SettingsLanguage;
+        LanguageCombo.SelectedIndex = savedLang == "en" ? 1 : 0;
     }
 
     private MainViewModel ViewModel => (MainViewModel)DataContext;
@@ -204,6 +210,25 @@ public partial class MainWindow : Window
         _isDragging = false;
         PreviewBorder.Cursor = Cursors.Arrow;
         PreviewBorder.ReleaseMouseCapture();
+    }
+
+    private void OnLanguageChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (_languageChanging) return;
+        if (LanguageCombo.SelectedIndex < 0) return;
+
+        var culture = LanguageCombo.SelectedIndex == 1 ? "en" : "zh";
+        if (culture == ViewModel.SettingsLanguage)
+        {
+            LanguageCombo.SelectedIndex = ViewModel.SettingsLanguage == "en" ? 1 : 0;
+            return;
+        }
+
+        _languageChanging = true;
+        ViewModel.SettingsLanguage = culture;
+        LocalizationService.Default.SetCulture(culture);
+        ViewModel.SaveSettings();
+        _languageChanging = false;
     }
 
     protected override void OnClosed(EventArgs e)
