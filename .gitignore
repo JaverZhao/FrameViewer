@@ -7,6 +7,8 @@ obj/
 *.sln.docstates
 .vs/
 publish/
+installer/
+publish-selfcontained/
 
 ## Visual Studio
 *.sln.ide/
