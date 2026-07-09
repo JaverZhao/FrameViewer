@@ -1,6 +1,6 @@
 [English](README.md)
 
-<p align="center"><img alt="FrameView" src="AppIcon.png" width="96"></p>
+<p align="center"><img alt="FrameView" src="icon.png" width="96"></p>
 
 # FrameView
 
