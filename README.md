@@ -4,7 +4,7 @@
 
 **A lightweight Windows desktop application for previewing image sequence animations.**
 
-FrameView lets you open a folder of sequentially numbered frames (PNG, JPG, WebP, BMP) and play them back as an animation — with full playback controls, zoom and pan, and a dark-themed UI optimized for game development and visual effects workflows.
+FrameView lets you open a folder of sequentially numbered frames (PNG, JPG, WebP, BMP) and play them back as an animation — with full playback controls, zoom and pan, and a dark-themed UI optimized for visual effects workflows.
 
 [中文文档](README_CN.md)
 
