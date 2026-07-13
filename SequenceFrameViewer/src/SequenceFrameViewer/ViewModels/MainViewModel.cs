@@ -125,13 +125,12 @@ public partial class MainViewModel : ObservableObject
         if (IsEmpty && EmptyStateMessage != string.Empty)
             EmptyStateMessage = LocalizationService.Default.EmptyState;
 
-        if (ZoomText == LocalizationService.Default.FitWindow || ZoomText == LocalizationService.Default.OriginalSize)
-        {
-            if (IsFitToWindow)
-                ZoomText = LocalizationService.Default.FitWindow;
-            else
-                UpdateZoomText();
-        }
+        if (IsFitToWindow)
+            ZoomText = LocalizationService.Default.FitWindow;
+        else if (Math.Abs(ZoomLevel - 1.0) < 0.01)
+            ZoomText = LocalizationService.Default.OriginalSize;
+        else
+            UpdateZoomText();
     }
 
     public string SettingsLanguage { get; set; } = "zh";
